@@ -1,0 +1,980 @@
+/* =====================================================
+   COLORES Y FUENTES
+   ===================================================== */
+:root {
+  --color-vino: #9B3D5D;
+  --color-vino-oscuro: #7a3352;
+  --color-azul: #4269A6;
+  --color-azul-oscuro: #4c6aa3;
+  --color-crema: #f4efe8;
+  --color-crema-borde: #e8e1d5;
+  --color-texto: #1c1c1c;
+  --color-pin-rojo: #C92035;
+  --color-rojo-inicio: #c22b40;
+   --color-negro-banner: #3B3838;
+
+
+  --fuente-titulos: "Baloo 2", sans-serif;
+  --fuente-texto: "Poppins", sans-serif;
+}
+
+/* =====================================================
+   RESET BÁSICO
+   Quito los márgenes y rellenos que el navegador pone
+   por defecto, para empezar desde cero.
+   ===================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--fuente-texto);
+  color: var(--color-texto);
+  background-color: var(--color-crema);
+  line-height: 1.6;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* =====================================================
+   NAVBAR (la barra de arriba, se repite en toda la página)
+   ===================================================== */
+
+/* Contenedor principal de la barra de navegación */
+.navbar {
+  background-color: var(--color-negro-banner);
+  padding: 22px 5%;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  transition: background-color 0.3s ease;
+}
+
+/* Contenedor interno que centra el contenido y separa
+   las pestañas de los iconos de redes */
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+/* Grupo de botones de pestañas (Sobre Mí / Portafolio / Contacto) */
+.nav-tabs {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Cada botón individual de pestaña */
+.tab-btn {
+  font-family: var(--fuente-texto);
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--color-texto);
+  background-color: var(--color-crema);
+  border: none;
+  border-radius: 999px;
+  padding: 14px 28px;
+  cursor: pointer;
+  /* transición suave para el hover y para cuando cambia a "activo" */
+  transition: transform 0.15s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.tab-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Estilo del botón cuando es la pestaña que se está mostrando */
+.tab-btn.active {
+  background-color: var(--color-texto);
+  color: var(--color-crema);
+}
+
+/* Iconos de redes sociales (derecha del navbar) */
+.social-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-texto);
+  color: var(--color-crema);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: transform 0.15s ease;
+}
+
+.icon-circle svg {
+  width: 18px;
+  height: 18px;
+}
+
+.icon-circle:hover {
+  transform: scale(1.08);
+}
+
+/* Esta clase quedó sin uso: ahora la navbar de arriba se
+   muestra siempre, en las 4 secciones (Inicio incluido), y
+   solo le cambia el color de fondo según la página activa
+   (eso lo hace script.js). La dejamos aquí por si se necesita
+   ocultar la navbar en algún caso puntual más adelante. */
+.navbar-oculto {
+  display: none;
+}
+
+/* =====================================================
+   CONTROL DE PESTAÑAS (mostrar/ocultar secciones)
+   Por defecto todas las secciones ".page" están ocultas,
+   y solo se ve la que tenga también la clase ".active".
+   El que agrega/quita esa clase es el archivo script.js
+   ===================================================== */
+.page {
+  display: none;
+  animation: aparecer 0.35s ease;
+}
+
+.page.active {
+  display: block;
+}
+
+/* Animación simple de aparición al cambiar de pestaña */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================================
+   SECCIÓN "INICIO"
+   ===================================================== */
+
+#inicio {
+  background-color: var(--color-rojo-inicio);
+  color: #ffffff;
+}
+
+/* Este min-height y display:flex solo se aplican cuando la
+   sección de Inicio está activa (o sea, cuando SÍ se está
+   mostrando). Si los hubiera puesto directo en "#inicio" sin
+   el ".active", esta sección se habría quedado visible todo
+   el tiempo, encima de las demás páginas — ese fue justo el
+   error que corregí aquí. */
+#inicio.active {
+  min-height: calc(100vh - 92px); /* le resto el alto aproximado de la navbar */
+  display: flex;
+  align-items: center;
+}
+
+/* Contenedor que centra todo el contenido de la portada */
+.inicio-wrap {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 5%;
+}
+
+/* Bloque central: logo + subtítulo + frase */
+.inicio-hero {
+  text-align: center;
+}
+
+/* El nombre "Dahi" en grande.
+   Uso "-webkit-text-stroke" para que se vea como letra hueca
+   (solo el contorno blanco, sin relleno), parecido al logo
+   original. Si más adelante cambias esto por una imagen
+   (ver comentario en el HTML), puedes borrar esta clase. */
+.inicio-logo {
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: clamp(4rem, 12vw, 8rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 2px #ffffff;
+  text-stroke: 2px #ffffff; /* por si algún día otros navegadores la soportan */
+  margin-bottom: 30px;
+}
+
+/* Logo de Inicio: le doy espacio arriba para que no quede
+   pegado a la navbar fija de arriba */
+.inicio-logo-img {
+  max-width: 420px;
+  width: 60%;
+  margin: 40px auto 30px;
+}
+
+.inicio-subtitulo {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 14px;
+}
+
+.inicio-tagline {
+  font-size: 1rem;
+  opacity: 0.95;
+}
+
+/* =====================================================
+   SECCIÓN "SOBRE MÍ"
+   ===================================================== */
+
+#sobre-mi {
+  background-color: var(--color-vino);
+  color: var(--color-crema);
+}
+
+/* Bloque de presentación: avatar + globo de texto + párrafos.
+   Uso flexbox para que el avatar quede a la izquierda
+   y el globo + texto queden alineados arriba, a la derecha. */
+.hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 5% 40px;
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.hero-avatar {
+  width: 320px;
+  flex-shrink: 0;
+  height: auto;
+  display: block;
+}
+
+/* Contenedor del globito + texto, apilados verticalmente */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* El globito que dice "Hola" */
+.speech-bubble {
+  background-color: var(--color-crema);
+  color: var(--color-texto);
+  border-radius: 28px 28px 28px 4px; /* la esquina de abajo-izq queda más recta, como un globo de diálogo */
+  padding: 22px 34px;
+  display: inline-block;
+  width: fit-content;
+  font-family: var(--fuente-titulos);
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.hero-text p {
+  margin-bottom: 16px;
+  font-size: 1.02rem;
+}
+
+/* El último párrafo no necesita separación de más abajo */
+.hero-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* Título tipo "Programas que manejo" */
+.section-title {
+  font-family: var(--fuente-titulos);
+  font-weight: 800;
+  font-style: italic;
+  font-size: 2rem;
+  color: var(--color-crema);
+  max-width: 1200px;
+  margin: 20px auto 24px;
+  padding: 0 5%;
+}
+
+.programs {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5% 60px;
+  display: flex;
+  flex-wrap: wrap;      /* para que en pantallas angostas bajen a otra fila */
+  gap: 24px;
+  align-items: center;
+  justify-content: flex-start; /* o "center" si quieres que se centren todas juntas */
+}
+
+.program-icon {
+  width: 150px;
+  height: auto;
+  display: block;
+}
+
+
+.experience-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5% 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.experience-card h3 {
+  font-family: var(--fuente-titulos);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+}
+
+.exp-tagline {
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.exp-text {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+  .experience-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* El párrafo largo de descripción (le puse su propia clase
+   en el HTML para no complicarme con selectores raros) */
+.exp-text {
+  color: #f0e6ec;
+  font-size: 0.96rem;
+}
+
+
+
+
+
+
+
+
+
+/* =====================================================
+SECCIÓN "PORTAFOLIO"
+===================================================== */
+
+#portafolio {
+  background-color: var(--color-azul);
+  color: var(--color-crema);
+  min-height: 70vh;
+}
+
+/* =====================================================
+CUADRÍCULA DEL PORTAFOLIO
+===================================================== */
+
+.portfolio-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 5%;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 28px;
+}
+
+.portfolio-item {
+  background-color: transparent;
+}
+
+/* =====================================================
+TARJETAS / MINIATURAS
+===================================================== */
+
+.portfolio-thumb {
+  position: relative;
+  overflow: hidden;
+
+  cursor: pointer;
+
+  border-radius: 10px;
+  aspect-ratio: 16 / 10;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* =====================================================
+IMÁGENES
+===================================================== */
+
+.portfolio-thumb img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  /* La imagen se adapta a la tarjeta */
+  object-fit: cover;
+
+  object-position: center;
+
+  transition: transform 0.4s ease;
+}
+
+/* =====================================================
+EFECTOS AL PASAR EL MOUSE
+===================================================== */
+
+.portfolio-thumb:hover {
+  transform: translateY(-5px);
+
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
+}
+
+.portfolio-thumb:hover img {
+  transform: scale(1.04);
+}
+
+/* =====================================================
+CAPA OSCURA SOBRE LAS IMÁGENES
+===================================================== */
+
+.portfolio-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  padding: 24px;
+
+  color: #ffffff;
+
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.78),
+    rgba(0, 0, 0, 0.05)
+  );
+
+  opacity: 0;
+
+  transition: opacity 0.3s ease;
+}
+
+/* La capa aparece al pasar el mouse */
+.portfolio-thumb:hover .portfolio-overlay {
+  opacity: 1;
+}
+
+/* =====================================================
+TÍTULOS DE LAS TARJETAS
+===================================================== */
+
+.thumb-title {
+  font-family: var(--fuente-titulos);
+
+  font-weight: 700;
+
+  font-size: 1.4rem;
+}
+
+.thumb-sub {
+  font-size: 0.88rem;
+
+  opacity: 0.9;
+}
+
+/* =====================================================
+BOTÓN "VER PROYECTO"
+===================================================== */
+
+.ver-imagen {
+  align-self: flex-start;
+
+  margin-top: 12px;
+
+  padding: 8px 12px;
+
+  border-radius: 20px;
+
+  background: rgba(0, 0, 0, 0.65);
+
+  color: #ffffff;
+
+  font-size: 0.78rem;
+
+  opacity: 0;
+
+  transform: translateY(-5px);
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* Aparece junto con la capa */
+.portfolio-thumb:hover .ver-imagen {
+  opacity: 1;
+
+  transform: translateY(0);
+}
+
+/* =====================================================
+TEXTO DEBAJO DE LAS TARJETAS
+===================================================== */
+
+.portfolio-item figcaption {
+  margin-top: 10px;
+
+  font-size: 0.88rem;
+
+  color: #e7edf9;
+}
+
+/* =====================================================
+DASHBOARD
+===================================================== */
+
+.thumb-dashboard .thumb-sub {
+  opacity: 0.75;
+}
+
+/* =====================================================
+VISOR DE IMÁGENES / MODAL
+===================================================== */
+
+.visor-imagen {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+
+  background: rgba(0, 0, 0, 0.92);
+
+  backdrop-filter: blur(6px);
+}
+
+/* Cuando el visor está abierto */
+.visor-imagen.activo {
+  display: flex;
+}
+
+/* Contenedor de la imagen ampliada */
+.visor-contenido {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+}
+
+/* =====================================================
+IMAGEN COMPLETA
+===================================================== */
+
+#imagen-ampliada {
+  display: block;
+
+  max-width: 92vw;
+
+  max-height: 85vh;
+
+  width: auto;
+
+  height: auto;
+
+  object-fit: contain;
+
+  border-radius: 6px;
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* Nombre del proyecto */
+#titulo-imagen {
+  margin: 12px 0 0;
+
+  color: #ffffff;
+
+  font-family: var(--fuente-titulos);
+
+  font-size: 1rem;
+
+  font-weight: 600;
+
+  text-align: center;
+}
+
+/* =====================================================
+BOTÓN PARA CERRAR EL VISOR
+===================================================== */
+
+.cerrar-visor {
+  position: absolute;
+
+  top: 20px;
+
+  right: 25px;
+
+  z-index: 10000;
+
+  width: 45px;
+
+  height: 45px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.15);
+
+  color: #ffffff;
+
+  font-size: 2rem;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.cerrar-visor:hover {
+  background: rgba(255, 255, 255, 0.3);
+
+  transform: rotate(90deg);
+}
+
+/* =====================================================
+ADAPTACIÓN PARA CELULAR
+===================================================== */
+
+@media (max-width: 768px) {
+
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .visor-imagen {
+    padding: 15px;
+  }
+
+  #imagen-ampliada {
+    max-width: 94vw;
+    max-height: 80vh;
+  }
+
+  .cerrar-visor {
+    top: 12px;
+    right: 15px;
+  }
+
+  /* En celular mostramos siempre la indicación */
+  .portfolio-overlay {
+    opacity: 1;
+  }
+
+  .ver-imagen {
+    opacity: 1;
+    transform: none;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =====================================================
+   SECCIÓN "CONTACTO"
+   ===================================================== */
+
+#contacto {
+  background-color: var(--color-crema);
+  color: var(--color-texto);
+  min-height: 80vh;
+}
+
+/* Contenedor centrado que envuelve todo el formulario */
+.contact-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 60px 5% 80px;
+}
+
+.contact-title {
+  font-family: var(--fuente-titulos);
+  font-weight: 800;
+  font-size: 2.2rem;
+  margin-bottom: 6px;
+}
+
+.contact-sub {
+  color: #6b6b6b;
+  margin-bottom: 34px;
+}
+
+/* Grupo de "pastillas" para elegir el tipo de servicio */
+.service-group {
+  border: none;
+  margin-bottom: 28px;
+}
+
+.service-group legend {
+  font-weight: 600;
+  margin-bottom: 14px;
+  padding: 0;
+}
+
+.service-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Escondo el radio button real, porque voy a diseñar
+   yo mismo el span de al lado como si fuera el botón */
+.service-pill input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Esta es la "pastilla" que sí se ve */
+.service-pill span {
+  display: inline-block;
+  padding: 12px 20px;
+  border-radius: 999px;
+  border: 2px solid var(--color-vino);
+  color: var(--color-vino);
+  cursor: pointer;
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Cuando el radio de adentro está marcado, cambio el color
+   de la pastilla que está justo al lado */
+.service-pill input:checked + span {
+  background-color: var(--color-vino);
+  color: var(--color-crema);
+}
+
+/* Cada fila del formulario: label + input, uno debajo del otro */
+.form-row {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-row label {
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.form-row input,
+.form-row textarea {
+  font-family: var(--fuente-texto);
+  font-size: 1rem;
+  padding: 14px 16px;
+  border: 2px solid var(--color-crema-borde);
+  border-radius: 12px;
+  background-color: #ffffff;
+  color: var(--color-texto);
+  resize: vertical;
+  transition: border-color 0.2s ease;
+}
+
+.form-row input:focus,
+.form-row textarea:focus {
+  outline: none;
+  border-color: var(--color-vino);
+}
+
+/* Botón de enviar */
+.btn-enviar {
+  font-family: var(--fuente-texto);
+  font-weight: 600;
+  font-size: 1rem;
+  background-color: var(--color-vino);
+  color: var(--color-crema);
+  border: none;
+  border-radius: 999px;
+  padding: 16px 40px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-enviar:hover {
+  background-color: var(--color-vino-oscuro);
+  transform: translateY(-1px);
+}
+
+/* Mensaje de "¡Gracias! tu mensaje fue enviado" que aparece
+   después de enviar el formulario (lo controla script.js) */
+.form-msg {
+  margin-top: 14px;
+  font-weight: 600;
+  color: var(--color-vino);
+  min-height: 1.2em;
+}
+
+/* =====================================================
+   PIE DE PÁGINA (footer)
+   ===================================================== */
+.footer {
+  background-color: var(--color-texto);
+  padding: 24px 5%;
+}
+
+.footer-tabs {
+  justify-content: center;
+}
+
+.footer-tabs .tab-btn {
+  background-color: #2b2b2b;
+  color: var(--color-crema);
+}
+
+.footer-tabs .tab-btn.active {
+  background-color: var(--color-vino);
+  color: var(--color-crema);
+}
+
+/* =====================================================
+   RESPONSIVE (para que se vea bien en pantallas chiquitas)
+   ===================================================== */
+
+/* Tablets y celulares grandes */
+@media (max-width: 800px) {
+  /* En pantallas angostas ya no alcanza el espacio para
+     dos columnas, así que apilo todo en una sola columna */
+  .hero {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "avatar"
+      "bubble"
+      "text";
+  }
+
+  .hero-avatar {
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+  .speech-bubble {
+    margin: 20px auto;
+  }
+
+  .experience-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-inner {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* Celulares chiquitos */
+@media (max-width: 480px) {
+  .tab-btn {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+  }
+
+  .contact-title {
+    font-size: 1.7rem;
+  }
+
+  .inicio-tabs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+}
+
+/* =====================================================
+   BOTÓN DE MÚSICA (reemplaza el reproductor grande)
+   Círculo chiquito, fijo en la esquina de la pantalla,
+   que solo alterna entre el ícono de play y de pausa.
+   ===================================================== */
+.btn-musica {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 200;
+
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+
+  background-color: var(--color-texto);
+  color: var(--color-crema);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.btn-musica:hover {
+  transform: scale(1.08);
+}
+
+.btn-musica svg {
+  width: 22px;
+  height: 22px;
+}
